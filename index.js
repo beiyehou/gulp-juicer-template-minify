@@ -64,7 +64,7 @@ function collapseWhitespaceBetweenSpecialSymbol(str) {
 }
 
 function collapseMultipleLine(str) {
-    return str.replace(/([\n\r]+)/ig , "\n\r");
+    return str.replace(/([\n\r]+)/ig , "\n");
 };
 
 module.exports = function(options) {
