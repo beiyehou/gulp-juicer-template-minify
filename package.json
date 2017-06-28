@@ -1,6 +1,6 @@
 {
   "name": "gulp-juicer-template-minify",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Compress juicer template",
   "main": "index.js",
   "scripts": {
