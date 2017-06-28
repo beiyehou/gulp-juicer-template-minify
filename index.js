@@ -81,7 +81,7 @@ module.exports = function(options) {
         }
 
         /** Get juicer tempalte from serial tempalte. **/
-        var juicerTemplateRegexp = /<script[\s\S]+?type=\"text\/x-juicer-template\"[\s\S]+?>[\s\S]*?<\/script>/ig;
+        var juicerTemplateRegexp = /<script[.]+?type=\"text\/x-juicer-template\"[.]+?>[\s\S]*?<\/script>/ig;
         var templateStrArr = str.match(juicerTemplateRegexp);
         if (!templateStrArr) {
             callback(null, file);
