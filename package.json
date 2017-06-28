@@ -1,0 +1,27 @@
+{
+  "name": "gulp-juicer-template-minify",
+  "version": "1.0.0",
+  "description": "Compress juicer template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beiyehou/gulp-juicer-template-minify.git"
+  },
+  "keywords": [
+    "minify",
+    "juicer",
+    "template"
+  ],
+  "author": "Huan Luo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beiyehou/gulp-juicer-template-minify/issues"
+  },
+  "homepage": "https://github.com/beiyehou/gulp-juicer-template-minify#readme",
+  "dependencies": {
+    "through2": "^2.0.3"
+  }
+}
