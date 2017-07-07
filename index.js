@@ -75,6 +75,7 @@ module.exports = function(options) {
         var compressTemplated = "";
         try {
             var str = file.contents.toString();
+            console.log(file['history']);
         } catch(error) {
             throw new Error("Can not get file content:", error);
             return callback(error, null);
@@ -107,6 +108,12 @@ module.exports = function(options) {
             });
 
             compressTemplated = templateStrArr.join("");
+        } else {
+            str = collapseWhitespace(str, {
+                preserveLineBreaks: true,
+                conservativeCollapse: true,
+            }, true, true, true);
+            str = collapseWhitespaceBetweenSpecialSymbol(str);
         }
 
         str = collapseMultipleLine(str);
