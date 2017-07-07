@@ -80,36 +80,38 @@ module.exports = function(options) {
             return callback(error, null);
         }
 
-        /** Get juicer tempalte from serial tempalte. **/
-        var juicerTemplateRegexp = /<script.+?type=\"text\/x-juicer-template\".*?>[\s\S]*?<\/script>/ig;
-        var templateStrArr = str.match(juicerTemplateRegexp);
-        if (!templateStrArr) {
-            callback(null, file);
-            return;
-        } else {
-            console.log("%d templates found.", templateStrArr.length);
+        if (options.only_juicer_template) {
+            /** Get juicer tempalte from serial tempalte. **/
+            var juicerTemplateRegexp = /<script.+?type=\"text\/x-juicer-template\".*?>[\s\S]*?<\/script>/ig;
+            var templateStrArr = str.match(juicerTemplateRegexp);
+            if (!templateStrArr) {
+                callback(null, file);
+                return;
+            } else {
+                console.log("%d templates found.", templateStrArr.length);
+            }
+            /** remove those juicer template from the original tempalte **/
+            str = str.replace(juicerTemplateRegexp , function(juicerTemplate) {
+                return "";
+            });
+
+            /** filter juicer tempaltes **/
+            templateStrArr = templateStrArr.map(function(juicerTemplate){
+                juicerTemplate = collapseWhitespace(juicerTemplate, {
+                    preserveLineBreaks: true,
+                    conservativeCollapse: true,
+                }, true, true, true);
+                juicerTemplate = collapseWhitespaceBetweenSpecialSymbol(juicerTemplate);
+
+                return juicerTemplate;
+            });
+
+            compressTemplated = templateStrArr.join("");
         }
-        /** remove those juicer template from the original tempalte **/
-        str = str.replace(juicerTemplateRegexp , function(juicerTemplate) {
-            return "";
-        });
 
         str = collapseMultipleLine(str);
 
-        /** filter juicer tempaltes **/
-        templateStrArr = templateStrArr.map(function(juicerTemplate){
-            juicerTemplate = collapseWhitespace(juicerTemplate, {
-                preserveLineBreaks: true,
-                conservativeCollapse: true,
-            }, true, true, true);
-            juicerTemplate = collapseWhitespaceBetweenSpecialSymbol(juicerTemplate);
-
-            return juicerTemplate;
-        });
-
-        compressTemplated = templateStrArr.join("");
-
-        file.contents = new Buffer([str, compressTemplated].join("\n\r"));
+        file.contents = new Buffer(compressTemplated?[str, compressTemplated].join("\n\r"):str);
         callback(null, file);
     });
 };
