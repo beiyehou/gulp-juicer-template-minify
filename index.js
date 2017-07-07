@@ -60,11 +60,11 @@ function collapseWhitespace(str, options, trimLeft, trimRight, collapseAll) {
 }
 
 function collapseWhitespaceBetweenSpecialSymbol(str) {
-    return str.replace(/([>\)}])\s+?([{\(<])/ig , "$1$2");
+    return str.replace(/([^}][>\)}])\s+?([{\(<][^{])/ig , "$1$2");
 }
 
 function collapseMultipleLine(str) {
-    return str.replace(/([\n\r]+)/ig , "\n");
+    return str.replace(/([\n\r]+)/ig , " ");
 };
 
 module.exports = function(options) {
