@@ -112,6 +112,7 @@ module.exports = function(options) {
         str = collapseMultipleLine(str);
 
         file.contents = new Buffer(compressTemplated?[str, compressTemplated].join("\n\r"):str);
+        console.log("deflating process finished!");
         callback(null, file);
     });
 };
